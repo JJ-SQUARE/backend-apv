@@ -12,11 +12,11 @@ dotenv.config();
 
 conectarDB();
 
-const dominiosPermitidos = ['http://127.0.0.1:5173']
+const dominiosPermitidos = [process.env.FRONTEND_URL];
 const corsOptions = {
     origin: function(origin, callback) {
         if(dominiosPermitidos.indexOf(origin) !== -1) {
-            // El dominio está permitido
+            // El origen del request está permitido
             callback(null, true);
             // null: no va a mandar mensaje de  error
             // true: permite el acceso
@@ -24,7 +24,7 @@ const corsOptions = {
             callback(new Error('Error no permitido por CORS'))
         }
     }
-}
+};
 
 app.use(cors(corsOptions));
 app.use('/api/veterinarios', veterinarioRoutes);

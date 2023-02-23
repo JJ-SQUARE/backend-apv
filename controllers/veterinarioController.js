@@ -19,15 +19,12 @@ const registrar = async (req, res) => {
         // Guardar un nuevo veterinario
         const veterinario = new Veterinario(req.body)
         const veterinarioGuardado = await veterinario.save();
-
         // Enviar email
         emailRegistro({
             email,
             nombre,
             token: veterinarioGuardado.token
         });
-
-
         res.json(veterinarioGuardado)
     } catch (error) {
         console.log(error)
@@ -49,7 +46,6 @@ const confirmar = async (req, res) => {
     }
 
     try {
-
         usuarioConfirmar.token = null;
         usuarioConfirmar.confirmado = true;
         await usuarioConfirmar.save();
